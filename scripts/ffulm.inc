@@ -1,4 +1,4 @@
-our $host = "127.17.1.1";
+our $host = "192.168.1.1";
 
 sub run{
 	my ($command,) = @_;
