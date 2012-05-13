@@ -73,6 +73,11 @@ start() {
 
 	/sbin/wifi detect > /tmp/wireless.tmp
 	[ -s /tmp/wireless.tmp ] && {
+		sed -i s/WIRELESS_MAC_REPLACED_ON_FIRST_BOOT/`grep macaddr /tmp/wireless.tmp|awk '{ print $3; }'`/ /etc/config/wireless
+	}
+	
+	/sbin/wifi detect > /tmp/wireless.tmp
+	[ -s /tmp/wireless.tmp ] && {
 		cat /tmp/wireless.tmp >> /etc/config/wireless
 	}
 	rm -f /tmp/wireless.tmp

@@ -1,7 +1,7 @@
 config wifi-device  radio0
 	option type     mac80211
 	option channel  1
-	option macaddr	f8:d1:11:79:38:32
+	option macaddr	WIRELESS_MAC_REPLACED_ON_FIRST_BOOT
 	option hwmode	11g
 
 config wifi-iface
@@ -10,10 +10,10 @@ config wifi-iface
 	option mode     ap
 	option ssid     ulm.freifunk.net
 	option encryption none
-	
+
 config wifi-iface
 	option device	radio0
-	option mode	adhoc
+	option mode 	adhoc
 	option ssid	batman.ulm.freifunk.net
-	option bssid	CA:FF:EE:CA:FF:EE
 	option encryption none
+	option bssid	CA:FF:EE:CA:FF:EE
