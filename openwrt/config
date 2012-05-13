@@ -2927,8 +2927,9 @@ CONFIG_PACKAGE_crda=y
 # CONFIG_PACKAGE_freeradius2 is not set
 # CONFIG_PACKAGE_genl is not set
 # CONFIG_PACKAGE_gpsd is not set
-# CONFIG_PACKAGE_hostapd is not set
+CONFIG_PACKAGE_hostapd=y
 # CONFIG_PACKAGE_hostapd-mini is not set
+# CONFIG_PACKAGE_hostapd-utils is not set
 # CONFIG_PACKAGE_hping3 is not set
 # CONFIG_PACKAGE_httping is not set
 # CONFIG_PACKAGE_httping-nossl is not set
