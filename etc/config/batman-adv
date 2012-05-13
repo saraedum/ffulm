@@ -1,0 +1,2 @@
+config 'mesh' 'bat0'
+	option 'interfaces' ''
