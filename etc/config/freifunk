@@ -8,8 +8,8 @@ config 'public' 'contact'
 	option 'note' ''
 
 config 'public' 'community'
-	option 'name' 'Freifunk'
-	option 'homepage' 'http://freifunk.net'
+	option 'name' 'ulm'
+	option 'homepage' 'http://ulm.freifunk.net'
 
 config 'fw_zone' 'zone_freifunk'
 	option 'name' 'freifunk'
