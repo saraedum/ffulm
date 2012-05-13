@@ -17,15 +17,17 @@ sub init(){
         usage() if $opt{h};
 }
 
-my @models = ("lafonera", "wr741nd");
+my @models = ("lafonera", "wr741nd", "wr1043nd");
 
 my %squashfs = (undefined => 'depends on the chosen model',
                 lafonera => "$script_dir/../openwrt/openwrt-atheros-root.squashfs",
+                wr1043nd => "$script_dir/../openwrt/openwrt-ar71xx-generic-tl-wr1043nd-v1-squashfs-sysupgrade.bin",
                 wr741nd => "$script_dir/../openwrt/openwrt-ar71xx-generic-tl-wr741nd-v4-squashfs-sysupgrade.bin",);
 
 my %vmlinux = (undefined => 'depends on the chosen model',
                lafonera => "$script_dir/../openwrt/openwrt-atheros-vmlinux.lzma",
-               wr741nd => undef);
+               wr741nd => undef,
+               wr1043nd => undef);
 
 sub usage(){
 	print STDERR << "EOF";
@@ -60,7 +62,7 @@ cd /tmp
 reboot
 EOF
 	run_remote($script);
-}elsif ($model eq "wr741nd"){
+}elsif ($model ~~ ("wr741nd", "wr1043nd")){
 	copy($squashfs,"/tmp/squashfs");
 	usage() if $opt{v};
 	my $script=<<EOF;
