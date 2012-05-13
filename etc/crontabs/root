@@ -1,0 +1,4 @@
+*/5 * * * *	killall -HUP dnsmasq
+*/5 * * * *	/usr/sbin/ff_olsr_watchdog
+0 */4 * * *	/usr/sbin/ff_rdate
+* * * * *	/usr/sbin/ffwatchd running || /etc/init.d/freifunk-watchdog restart
