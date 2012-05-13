@@ -1,2 +1,2 @@
 config 'mesh' 'bat0'
-	option 'interfaces' ''
+	option 'interfaces' 'wlan0-1 br-lan'
