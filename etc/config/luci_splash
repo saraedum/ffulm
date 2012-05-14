@@ -1,2 +1,6 @@
 config core general
 	option leasetime 1
+
+config iface
+	option zone 'lan'
+	option network 'lan'
