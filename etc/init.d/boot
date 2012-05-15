@@ -70,6 +70,8 @@ start() {
 	[ "$FAILSAFE" = "true" ] && touch /tmp/.failsafe
 
 	load_modules /etc/modules.d/*
+	
+	sed -i s/V6_PREFIX_REPLACED_ON_FIRST_BOOT/`awk 'BEGIN {srand();printf("2a01:348:12f:%x::1\\\\/64",int(rand()*65000+535));}'` /etc/config/network
 
 	/sbin/wifi detect > /tmp/wireless.tmp
 	[ -s /tmp/wireless.tmp ] && {
