@@ -1,4 +1,3 @@
-
 config interface 'loopback'
 	option ifname 'lo'
 	option proto 'static'
@@ -11,6 +10,7 @@ config interface 'lan'
 	option proto 'static'
 	option ipaddr '192.168.1.1'
 	option netmask '255.255.255.0'
+	option ip6addr 'V6_PREFIX_REPLACED_ON_FIRST_BOOT'
 
 config interface 'wan'
 	option ifname 'eth1'
@@ -25,4 +25,3 @@ config switch_vlan
 	option device 'eth0'
 	option vlan '1'
 	option ports '0 1 2 3 4'
-

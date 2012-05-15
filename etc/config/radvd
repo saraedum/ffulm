@@ -4,7 +4,6 @@ config interface
 	option AdvManagedFlag	0
 	option AdvOtherConfigFlag 0
 	list client		''
-	option ignore		1
 
 config prefix
 	option interface	'lan'
@@ -13,7 +12,6 @@ config prefix
 	option AdvOnLink	1
 	option AdvAutonomous	1
 	option AdvRouterAddr	0
-	option ignore		1
 
 config route
 	option interface	'lan'
