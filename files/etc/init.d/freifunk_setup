@@ -54,7 +54,6 @@ initial_wifi_setup()
 			uci set $h.network="${wifi_device}_mesh"
 			uci set $h.ssid="$ah_ssid"
 			uci set $h.bssid="$ah_bssid"
-			uci set $h.mcast_rate=12000
 			uci set $h.hidden=1
 
 			n=network.`uci get $h.network`
@@ -126,7 +125,8 @@ initial_freifunk_setup()
 	uci set network.freifunk6="interface"
 	uci set network.freifunk6.ifname="@freifunk"
 	uci set network.freifunk6.proto="dhcpv6"
-	uci set network.freifunk6.peerdns="1"
+	uci set network.freifunk6.reqaddress="none" #slaac only
+	uci set network.freifunk6.reqprefix="no" #disable dhcpv6 /128 request
 }
 
 initial_setup()
@@ -199,9 +199,13 @@ initial_setup()
 	#save defaults for use in the web-ui
 	cp /etc/config/network /etc/config/network_defaults
 
-	echo -e "\n#disable forwarding in order for router-solicitations to be set for these interfaces" >> /etc/sysctl.conf
-	echo "net.ipv6.conf.br-freifunk.forwarding=0" >> /etc/sysctl.conf
-	echo "net.ipv6.conf.br-lan.forwarding=0" >> /etc/sysctl.conf
+	cat >> /etc/sysctl.conf <<  EOF
+
+# increase neighbor table timings by a factor of 10
+net.ipv6.neigh.default.gc_interval=300
+net.ipv6.neigh.default.gc_stale_time=600
+net.ipv6.neigh.default.base_reachable_time=300
+EOF
 
 	uci set system.@system[0].timezone='CET-1CEST,M3.5.0,M10.5.0/3'
 
@@ -220,7 +224,7 @@ start()
 	echo "(I) Start freifunk_setup"
 
 	from_version="$(uci get -q freifunk.@settings[0].version)"
-	to_version="0.4.mini"
+	to_version="0.4.3.mini"
 
 	echo "(I) Update from '$from_version' to '$to_version'"
 	case "$from_version" in
@@ -234,9 +238,16 @@ start()
 			/etc/init.d/sysntpd stop
 			;;
 		*)
-			echo "(E) Unknown version => Skip setup."
+			echo "(I) No configuration updater set. Only version will be updated."
 			;;
 	esac
+
+	uci set -q freifunk.@settings[0].version="$to_version"
+	uci commit -q freifunk
+
+	/etc/init.d/fastd disable
+	/etc/init.d/telnet disable
+	/etc/init.d/simple-radvd enable
 
 	#disable and remove this script
 	/etc/init.d/freifunk_setup disable
